@@ -1,0 +1,14 @@
+node_modules/
+data/
+test/
+services.d/
+
+.env
+deploy.yml
+nginx.conf
+notes.txt
+routes.rest
+Dockerfile
+Makefile
+*.rest
+.dockerignore
