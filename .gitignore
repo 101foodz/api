@@ -1,14 +1,19 @@
-node_modules/
-data/
-test/
-services.d/
+# DIR
+node_modules
+deployments
+services.d
+data
+test
 
-.env
+# FILE
+.dockerignore
+Dockerfile
+routes.rest
 deploy.yml
 nginx.conf
 notes.txt
-routes.rest
-Dockerfile
 Makefile
 *.rest
-.dockerignore
+dev.sh
+.env
+.dev
