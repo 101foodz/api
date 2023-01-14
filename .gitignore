@@ -8,12 +8,11 @@ test
 # FILE
 .dockerignore
 Dockerfile
-routes.rest
+route.rest
 deploy.yml
 nginx.conf
 notes.txt
 Makefile
-*.rest
 dev.sh
 .env
 .dev

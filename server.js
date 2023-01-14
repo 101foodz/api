@@ -10,6 +10,8 @@ const mongoose = require('mongoose')
 
 const port = process.env.PORT ? process.env.PORT : 8080;
 const pubkey = process.env.GUN_PUB ? process.env.GUN_PUB : '';
+const rootmap = process.env.GUN_ROOT ? process.env.GUN_ROOT : undefined;
+const dev = process.env.DEV ? true : false;
 
 const app = express();
 
@@ -59,14 +61,20 @@ var server = app.listen(port, '0.0.0.0', ()=>{
 })
 
 function getPeers(){
-    let peers = process.env.GUN_PEERS
+    let p = process.env.GUN_PEERS;
+    let peers = [];
     try{
-        if(peers != null && peers != undefined && peers.length > 0)
-            return peers.split(',');
+        if(p != null && p != undefined && p.length > 0){
+            p.split(',').forEach((peer)=>{
+                peers.push(peer.trim());
+            })
+            return peers;
+        }
         throw "";
     }catch(_){ return ['']; }
 }
 
+if(dev) console.log(getPeers())
 const gun = Gun({
     // radisk: true, localStorage: false,
     peers: getPeers(),
@@ -81,5 +89,7 @@ const gun = Gun({
     }
 })
 
-let init = gun.get('blog').get('init').put({value: 'yes'})
-console.log('gun-init:\n',init);
+rootmap.split(',').forEach((rootnode)=>{
+    const init = gun.get(rootnode.trim()).get('init').put({value: 'yes'})
+    if(dev) console.log(init);
+});
